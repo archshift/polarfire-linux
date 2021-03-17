@@ -1,0 +1,42 @@
+/dts-v1/;
+
+/ {
+  description = "Simple image with single Linux kernel";
+  #address-cells = <1>;
+
+  images {
+    kernel {
+      description = "Vanilla Linux kernel";
+      data = /incbin/("../arch/riscv/boot/Image.gz");
+      type = "kernel";
+      arch = "riscv";
+      os = "linux";
+      compression = "gzip";
+      load = <0x80200000>;
+      entry = <0x80200000>;
+      hash {
+        algo = "sha256";
+      };
+    };
+    fdt@microchip_icicle-kit-es-a000-microchip.dtb {
+      description = "Flattened Device Tree blob";
+      data = /incbin/("../arch/riscv/boot/dts/microchip/icicle-kit-es-a000-microchip.dtb");
+      compression = "none";
+      arch = "riscv";
+      load = <0x82200000>;
+      type = "flat_dt";
+      hash {
+        algo = "sha256";
+      };
+    };
+  };
+
+  configurations {
+    default = "config-1";
+    config-1 {
+      description = "Boot Linux kernel";
+      kernel = "kernel";
+      fdt = "fdt@microchip_icicle-kit-es-a000-microchip.dtb";
+    };
+  };
+};
