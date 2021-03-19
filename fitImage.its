@@ -18,7 +18,7 @@
         algo = "sha256";
       };
     };
-    fdt@microchip_icicle-kit-es-a000-microchip.dtb {
+    fdt__icicle-kit-es-a000-microchip {
       description = "Flattened Device Tree blob";
       data = /incbin/("../arch/riscv/boot/dts/microchip/icicle-kit-es-a000-microchip.dtb");
       compression = "none";
@@ -36,7 +36,7 @@
     config-1 {
       description = "Boot Linux kernel";
       kernel = "kernel";
-      fdt = "fdt@microchip_icicle-kit-es-a000-microchip.dtb";
+      fdt = "fdt__icicle-kit-es-a000-microchip";
     };
   };
 };
