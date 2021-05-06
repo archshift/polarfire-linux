@@ -1,26 +1,17 @@
-From 70c740bd0e675a0c1d04e1f0d5c20b1c4d3dd90b Mon Sep 17 00:00:00 2001
+From fd62eef0e2a92357e82520ec9948adbc125dbcca Mon Sep 17 00:00:00 2001
 From: Conor Dooley <conor.dooley@microchip.com>
 Date: Mon, 21 Dec 2020 14:01:37 +0000
-Subject: [PATCH] atish_roundup
+Subject: [PATCH 14/18] atish_roundup
 
 ---
- .../devicetree/bindings/riscv/microchip.yaml  |  28 ++
- MAINTAINERS                                   |   8 +
- arch/riscv/Kconfig.socs                       |  11 +-
- arch/riscv/boot/dts/Makefile                  |   1 +
- arch/riscv/boot/dts/microchip/Makefile        |   2 +
- .../microchip/microchip-mpfs-icicle-kit.dts   |  72 ++++
- .../boot/dts/microchip/microchip-mpfs.dtsi    | 331 ++++++++++++++++++
- arch/riscv/configs/defconfig                  |   4 +
- 8 files changed, 455 insertions(+), 2 deletions(-)
+ .../devicetree/bindings/riscv/microchip.yaml  | 28 +++++++++++++++++++
+ arch/riscv/Kconfig.socs                       | 11 ++++++--
+ 2 files changed, 37 insertions(+), 2 deletions(-)
  create mode 100644 Documentation/devicetree/bindings/riscv/microchip.yaml
- create mode 100644 arch/riscv/boot/dts/microchip/Makefile
- create mode 100644 arch/riscv/boot/dts/microchip/microchip-mpfs-icicle-kit.dts
- create mode 100644 arch/riscv/boot/dts/microchip/microchip-mpfs.dtsi
 
 diff --git a/Documentation/devicetree/bindings/riscv/microchip.yaml b/Documentation/devicetree/bindings/riscv/microchip.yaml
 new file mode 100644
-index 000000000000..66e63c2bf359
+index 000000000..66e63c2bf
 --- /dev/null
 +++ b/Documentation/devicetree/bindings/riscv/microchip.yaml
 @@ -0,0 +1,28 @@
@@ -53,7 +44,7 @@ index 000000000000..66e63c2bf359
 +
 +...
 diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
-index 8a55f6156661..668f4b126657 100644
+index dd1fe3ce8..37ee11978 100644
 --- a/arch/riscv/Kconfig.socs
 +++ b/arch/riscv/Kconfig.socs
 @@ -1,6 +1,13 @@
@@ -73,5 +64,5 @@ index 8a55f6156661..668f4b126657 100644
  	select SERIAL_SIFIVE if TTY
  	select SERIAL_SIFIVE_CONSOLE if TTY
 -- 
-2.17.1
+2.31.1
 

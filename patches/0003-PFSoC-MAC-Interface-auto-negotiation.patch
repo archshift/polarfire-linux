@@ -1,7 +1,7 @@
-From 7b2e3b1b306f759c23a49d6007a8778b3ecd4fbf Mon Sep 17 00:00:00 2001
+From 81db8ddcd94377a27ba45f4001dc390a18f445bf Mon Sep 17 00:00:00 2001
 From: m34782 <lewis.hanly@microchip.com>
 Date: Mon, 15 Jun 2020 08:35:52 +0100
-Subject: [PATCH] PFSoC MAC Interface auto-negotiation.
+Subject: [PATCH 03/18] PFSoC MAC Interface auto-negotiation.
 
 Signed-off-by: Lewis Hanly <lewis.hanly@microchip.com>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: Lewis Hanly <lewis.hanly@microchip.com>
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/net/phy/vitesse.c b/drivers/net/phy/vitesse.c
-index bb680352708a..9b2c5962d37b 100644
+index bb6803527..9b2c5962d 100644
 --- a/drivers/net/phy/vitesse.c
 +++ b/drivers/net/phy/vitesse.c
 @@ -99,6 +99,13 @@ static int vsc824x_add_skew(struct phy_device *phydev)
@@ -26,3 +26,6 @@ index bb680352708a..9b2c5962d37b 100644
  
  	err = phy_write(phydev, MII_VSC8244_AUX_CONSTAT,
  			MII_VSC8244_AUXCONSTAT_INIT);
+-- 
+2.31.1
+

@@ -1,0 +1,33 @@
+From 7f84fb29973bc6301492a1c253a3ed8d6a3c1d8c Mon Sep 17 00:00:00 2001
+From: Daire McNamara <daire.mcnamara@microchip.com>
+Date: Tue, 16 Mar 2021 16:49:40 -0700
+Subject: [PATCH 08/18] Add definition for Microchip PolarFire SoC
+
+Signed-off-by: Daire McNamara <daire.mcnamara@microchip.com>
+---
+ arch/riscv/Kconfig.socs | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/riscv/Kconfig.socs b/arch/riscv/Kconfig.socs
+index 8a55f6156..dd1fe3ce8 100644
+--- a/arch/riscv/Kconfig.socs
++++ b/arch/riscv/Kconfig.socs
+@@ -22,6 +22,15 @@ config SOC_VIRT
+ 	help
+ 	  This enables support for QEMU Virt Machine.
+ 
++config SOC_PFSOC
++	bool "Microchip PolarFire"
++	select MCHP_CLK_PFSOC
++	select SIFIVE_PLIC
++	help
++	  This enables support for Microchip PolarFire SoC platform hardware.
++
++	  If you are building on Microchip PolarFire SoC, say Y.
++
+ config SOC_KENDRYTE
+ 	bool "Kendryte K210 SoC"
+ 	depends on !MMU
+-- 
+2.31.1
+

@@ -1,7 +1,7 @@
-From ea9a4f7adadd94faf6e17367972b6b6794c70013 Mon Sep 17 00:00:00 2001
+From 8e11025598102f3c8a79784930a6fb977b9efac3 Mon Sep 17 00:00:00 2001
 From: m34782 <lewis.hanly@microchip.com>
 Date: Tue, 22 Dec 2020 09:34:06 +0000
-Subject: [PATCH] V5 Adding Microchip MUSB Driver
+Subject: [PATCH 10/18] V5 Adding Microchip MUSB Driver
 
 Signed-off-by: Lewis Hanly <lewis.hanly@microchip.com>
 ---
@@ -12,12 +12,12 @@ Signed-off-by: Lewis Hanly <lewis.hanly@microchip.com>
  create mode 100644 drivers/usb/musb/musb_mpfs.c
 
 diff --git a/drivers/usb/musb/Kconfig b/drivers/usb/musb/Kconfig
-index eb2ded1026ee..6b78dcb52add 100644
+index 8de143807..ae9079290 100644
 --- a/drivers/usb/musb/Kconfig
 +++ b/drivers/usb/musb/Kconfig
-@@ -114,6 +114,11 @@ config USB_MUSB_JZ4740
- 	depends on USB_MUSB_GADGET
- 	depends on USB=n || USB_OTG_BLACKLIST_HUB
+@@ -116,6 +116,11 @@ config USB_MUSB_JZ4740
+ 	depends on USB=n || USB_OTG_DISABLE_EXTERNAL_HUB
+ 	select USB_ROLE_SWITCH
  
 +config USB_MUSB_MPFS_MICROCHIP
 +	tristate "Microchip PolarFire SoC platforms"
@@ -27,17 +27,17 @@ index eb2ded1026ee..6b78dcb52add 100644
  config USB_MUSB_MEDIATEK
  	tristate "MediaTek platforms"
  	depends on ARCH_MEDIATEK || COMPILE_TEST
-@@ -144,7 +149,7 @@ config USB_UX500_DMA
+@@ -146,7 +151,7 @@ config USB_UX500_DMA
  
  config USB_INVENTRA_DMA
  	bool 'Inventra'
--	depends on USB_MUSB_OMAP2PLUS || USB_MUSB_MEDIATEK
-+	depends on USB_MUSB_OMAP2PLUS || USB_MUSB_MEDIATEK || USB_MUSB_BLACKFIN || USB_MUSB_MPFS_MICROCHIP
+-	depends on USB_MUSB_OMAP2PLUS || USB_MUSB_MEDIATEK || USB_MUSB_JZ4740
++	depends on USB_MUSB_OMAP2PLUS || USB_MUSB_MEDIATEK || USB_MUSB_JZ4740 || USB_MUSB_MPFS_MICROCHIP
  	help
  	  Enable DMA transfers using Mentor's engine.
  
 diff --git a/drivers/usb/musb/Makefile b/drivers/usb/musb/Makefile
-index 932247360a9f..350f6adac440 100644
+index 932247360..350f6adac 100644
 --- a/drivers/usb/musb/Makefile
 +++ b/drivers/usb/musb/Makefile
 @@ -25,6 +25,7 @@ obj-$(CONFIG_USB_MUSB_UX500)			+= ux500.o
@@ -50,7 +50,7 @@ index 932247360a9f..350f6adac440 100644
  # possible I/O schemes will be enabled at a time ...
 diff --git a/drivers/usb/musb/musb_mpfs.c b/drivers/usb/musb/musb_mpfs.c
 new file mode 100644
-index 000000000000..6ccec87787cc
+index 000000000..511181b83
 --- /dev/null
 +++ b/drivers/usb/musb/musb_mpfs.c
 @@ -0,0 +1,326 @@
@@ -380,3 +380,6 @@ index 000000000000..6ccec87787cc
 +MODULE_DESCRIPTION("PolarFire SoC MUSB Glue Layer");
 +MODULE_AUTHOR("Sagar Khadgi <sagar.khadgi@microchip.com>");
 +MODULE_LICENSE("GPL v2");
+-- 
+2.31.1
+

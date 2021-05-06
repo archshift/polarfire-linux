@@ -1,24 +1,20 @@
-From aa632c669b42c4afbc59d0fa05f9505b60f5511c Mon Sep 17 00:00:00 2001
-From: Lewis Hanly <Lewis.Hanly@microchip.com>
-Date: Fri, 21 Feb 2020 14:22:14 +0000
-Subject: [PATCH] Microchip Support for the Polarfire SoC.
+From a085ea5456ab5ffee0541c28a29aa744c0d06ab5 Mon Sep 17 00:00:00 2001
+From: Lewis Hanly <lewis.hanly@microchip.com>
+Date: Wed, 17 Mar 2021 15:56:05 -0700
+Subject: [PATCH 04/18] V2 GPIO Driver updates Enabled MSS Clock for GPIO
 
-Adding the Microsemi GPIO support for the MPFS platforms.
-
-
-Signed-off-by: Lewis Hanly <Lewis.Hanly@microchip.com>
 ---
  drivers/gpio/Kconfig          |   7 +
  drivers/gpio/Makefile         |   1 +
- drivers/gpio/gpio-microsemi.c | 495 ++++++++++++++++++++++++++++++++++
- 3 files changed, 503 insertions(+)
+ drivers/gpio/gpio-microsemi.c | 510 ++++++++++++++++++++++++++++++++++
+ 3 files changed, 518 insertions(+)
  create mode 100644 drivers/gpio/gpio-microsemi.c
 
 diff --git a/drivers/gpio/Kconfig b/drivers/gpio/Kconfig
-index f9263426af03..db57ac98483e 100644
+index 14751c7cc..2139b1bbe 100644
 --- a/drivers/gpio/Kconfig
 +++ b/drivers/gpio/Kconfig
-@@ -338,6 +338,13 @@ config GPIO_MENZ127
+@@ -382,6 +382,13 @@ config GPIO_MENZ127
  	help
  	  Say yes here to support the MEN 16Z127 GPIO Controller
  
@@ -33,23 +29,23 @@ index f9263426af03..db57ac98483e 100644
  	bool "Lantiq Memory mapped GPIOs"
  	depends on LANTIQ && SOC_XWAY
 diff --git a/drivers/gpio/Makefile b/drivers/gpio/Makefile
-index d2fd19c15bae..2eac1c67a16e 100644
+index 09dada80a..994e4bbd4 100644
 --- a/drivers/gpio/Makefile
 +++ b/drivers/gpio/Makefile
-@@ -88,6 +88,7 @@ obj-$(CONFIG_GPIO_MC33880)		+= gpio-mc33880.o
+@@ -93,6 +93,7 @@ obj-$(CONFIG_GPIO_MC33880)		+= gpio-mc33880.o
  obj-$(CONFIG_GPIO_MC9S08DZ60)		+= gpio-mc9s08dz60.o
  obj-$(CONFIG_GPIO_MENZ127)		+= gpio-menz127.o
  obj-$(CONFIG_GPIO_MERRIFIELD)		+= gpio-merrifield.o
-+obj-$(CONFIG_GPIO_MICROSEMI)	+= gpio-microsemi.o
++obj-$(CONFIG_GPIO_MICROSEMI)		+= gpio-microsemi.o
  obj-$(CONFIG_GPIO_ML_IOH)		+= gpio-ml-ioh.o
  obj-$(CONFIG_GPIO_MLXBF)		+= gpio-mlxbf.o
- obj-$(CONFIG_GPIO_MM_LANTIQ)		+= gpio-mm-lantiq.o
+ obj-$(CONFIG_GPIO_MLXBF2)		+= gpio-mlxbf2.o
 diff --git a/drivers/gpio/gpio-microsemi.c b/drivers/gpio/gpio-microsemi.c
 new file mode 100644
-index 000000000000..c62d4589eba8
+index 000000000..3cb137835
 --- /dev/null
 +++ b/drivers/gpio/gpio-microsemi.c
-@@ -0,0 +1,495 @@
+@@ -0,0 +1,510 @@
 +/*
 + * Microsemi GPIO driver
 + *
@@ -64,6 +60,7 @@ index 000000000000..c62d4589eba8
 +#include <linux/device.h>
 +#include <linux/errno.h>
 +#include <linux/gpio/driver.h>
++#include <linux/clk.h>
 +#include <linux/irq.h>
 +#include <linux/irqchip/chained_irq.h>
 +#include <linux/of_irq.h>
@@ -96,6 +93,7 @@ index 000000000000..c62d4589eba8
 +struct microsemi_mss_gpio_chip {
 +	raw_spinlock_t lock;
 +	struct gpio_chip gc;
++        struct clk		*clk;
 +
 +	MSS_GPIO_REG_TYPE __iomem *base;
 +	MSS_GPIO_REG_TYPE __iomem *gpio_cfg_base;
@@ -431,6 +429,7 @@ index 000000000000..c62d4589eba8
 +	struct microsemi_mss_gpio_chip *mss_gpio;
 +	struct resource *res;
 +	int gpio_index, irq, ret, ngpio;
++	struct clk			*clk;
 +
 +	mss_gpio = devm_kzalloc(dev, sizeof(*mss_gpio), GFP_KERNEL);
 +	if (!mss_gpio) {
@@ -445,6 +444,18 @@ index 000000000000..c62d4589eba8
 +		dev_err(dev, "failed to allocate device memory\n");
 +		return PTR_ERR(mss_gpio->base);
 +	}
++	clk = devm_clk_get(&pdev->dev, NULL);
++	if (IS_ERR(clk)) {
++		dev_err(&pdev->dev, "failed to get clock\n");
++		return PTR_ERR(clk);
++	}
++
++	ret = clk_prepare_enable(clk);
++	if (ret) {
++		dev_err(&pdev->dev, "failed to enable clock\n");
++		return -EINVAL;
++	}
++        mss_gpio->clk = clk;
 +
 +	mss_gpio->gpio_cfg_base = mss_gpio->base + (0x00u/sizeof(MSS_GPIO_REG_TYPE));
 +	mss_gpio->gpio_irq_base = mss_gpio->base + (0x80u/sizeof(MSS_GPIO_REG_TYPE));
@@ -545,3 +556,6 @@ index 000000000000..c62d4589eba8
 +};
 +
 +builtin_platform_driver(microsemi_mss_gpio_driver)
+-- 
+2.31.1
+

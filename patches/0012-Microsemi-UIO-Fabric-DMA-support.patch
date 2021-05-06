@@ -1,7 +1,7 @@
-From 70f6723b4e7296ad530dadb61912795e61dfa9e6 Mon Sep 17 00:00:00 2001
+From 85d632aff28f97ddabfbdae72d49f159e06c9890 Mon Sep 17 00:00:00 2001
 From: praveen kumar <praveen.kumar@microchip.com>
 Date: Wed, 23 Dec 2020 11:45:52 +0530
-Subject: [PATCH] Microsemi UIO Fabric DMA support
+Subject: [PATCH 12/18] Microsemi UIO Fabric DMA support
 
 Signed-off-by: praveen kumar <praveen.kumar@microchip.com>
 ---
@@ -12,7 +12,7 @@ Signed-off-by: praveen kumar <praveen.kumar@microchip.com>
  create mode 100644 drivers/uio/uio-microsemi-dma.c
 
 diff --git a/drivers/uio/Kconfig b/drivers/uio/Kconfig
-index b5c593d8e483..9b21863fe549 100644
+index 6c966adfc..5012f23cd 100644
 --- a/drivers/uio/Kconfig
 +++ b/drivers/uio/Kconfig
 @@ -172,4 +172,10 @@ config UIO_MICROCHIP_CAN
@@ -27,7 +27,7 @@ index b5c593d8e483..9b21863fe549 100644
 +
  endif
 diff --git a/drivers/uio/Makefile b/drivers/uio/Makefile
-index 0faf3a0c1ff9..c73684661175 100644
+index 020d95eaf..62cf290dc 100644
 --- a/drivers/uio/Makefile
 +++ b/drivers/uio/Makefile
 @@ -12,3 +12,4 @@ obj-$(CONFIG_UIO_MF624)         += uio_mf624.o
@@ -37,7 +37,7 @@ index 0faf3a0c1ff9..c73684661175 100644
 +obj-$(CONFIG_UIO_MICROSEMI_DMA)	+= uio-microsemi-dma.o
 diff --git a/drivers/uio/uio-microsemi-dma.c b/drivers/uio/uio-microsemi-dma.c
 new file mode 100644
-index 000000000000..9282250aa5db
+index 000000000..9282250aa
 --- /dev/null
 +++ b/drivers/uio/uio-microsemi-dma.c
 @@ -0,0 +1,182 @@
@@ -224,5 +224,5 @@ index 000000000000..9282250aa5db
 +MODULE_VERSION(DRV_VERSION);
 +MODULE_AUTHOR("Vattipalli Praveen <praveen.kumar@microchip.com>");
 -- 
-2.17.1
+2.31.1
 

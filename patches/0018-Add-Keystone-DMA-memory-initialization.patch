@@ -1,0 +1,33 @@
+From 6781329a0bbe651c820ee6a638baf568f85625c5 Mon Sep 17 00:00:00 2001
+From: Gui Andrade <gh@archshift.com>
+Date: Thu, 6 May 2021 14:35:43 -0700
+Subject: [PATCH 18/18] Add Keystone DMA memory initialization
+
+---
+ arch/riscv/mm/init.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/riscv/mm/init.c b/arch/riscv/mm/init.c
+index 608082fb9..09a2401f1 100644
+--- a/arch/riscv/mm/init.c
++++ b/arch/riscv/mm/init.c
+@@ -13,6 +13,7 @@
+ #include <linux/of_fdt.h>
+ #include <linux/libfdt.h>
+ #include <linux/set_memory.h>
++#include <linux/dma-map-ops.h>
+ 
+ #include <asm/fixmap.h>
+ #include <asm/tlbflush.h>
+@@ -96,6 +97,8 @@ void __init mem_init(void)
+ 	BUG_ON(!mem_map);
+ #endif /* CONFIG_FLATMEM */
+ 
++	dma_contiguous_reserve(memblock_end_of_DRAM());
++
+ 	high_memory = (void *)(__va(PFN_PHYS(max_low_pfn)));
+ 	memblock_free_all();
+ 
+-- 
+2.31.1
+

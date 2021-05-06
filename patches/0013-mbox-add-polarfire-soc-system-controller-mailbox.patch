@@ -1,7 +1,7 @@
-From 5114d32f15c1a84c7b3b15ca8de7c8db2afea0c1 Mon Sep 17 00:00:00 2001
+From 4af85663b2e7b22088d62edd832fbca6b2b1052a Mon Sep 17 00:00:00 2001
 From: Conor Dooley <conor.dooley@microchip.com>
 Date: Mon, 21 Dec 2020 15:31:20 +0000
-Subject: [PATCH v3 1/5] mbox: add polarfire soc system controller mailbox
+Subject: [PATCH 13/18] mbox: add polarfire soc system controller mailbox
 
 This driver adds support for the single mailbox channel of the MSS
 system controller on the Microchip PolarFire SoC.
@@ -17,7 +17,7 @@ Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
  create mode 100644 include/soc/microchip/mpfs.h
 
 diff --git a/drivers/mailbox/Kconfig b/drivers/mailbox/Kconfig
-index ab4eb750bbdd..ec81df1366e7 100644
+index 05b1009e2..9aa18631c 100644
 --- a/drivers/mailbox/Kconfig
 +++ b/drivers/mailbox/Kconfig
 @@ -153,6 +153,18 @@ config MAILBOX_TEST
@@ -40,7 +40,7 @@ index ab4eb750bbdd..ec81df1366e7 100644
  	tristate "Qualcomm APCS IPC driver"
  	depends on ARCH_QCOM || COMPILE_TEST
 diff --git a/drivers/mailbox/Makefile b/drivers/mailbox/Makefile
-index c22fad6f696b..966a23a33fe4 100644
+index 2e06e02b2..77b79a0c3 100644
 --- a/drivers/mailbox/Makefile
 +++ b/drivers/mailbox/Makefile
 @@ -39,6 +39,8 @@ obj-$(CONFIG_BCM_PDC_MBOX)	+= bcm-pdc-mailbox.o
@@ -54,7 +54,7 @@ index c22fad6f696b..966a23a33fe4 100644
  obj-$(CONFIG_TEGRA_HSP_MBOX)	+= tegra-hsp.o
 diff --git a/drivers/mailbox/mailbox-mpfs.c b/drivers/mailbox/mailbox-mpfs.c
 new file mode 100644
-index 000000000000..c534848b3ee3
+index 000000000..92216bb93
 --- /dev/null
 +++ b/drivers/mailbox/mailbox-mpfs.c
 @@ -0,0 +1,297 @@
@@ -357,7 +357,7 @@ index 000000000000..c534848b3ee3
 +MODULE_DESCRIPTION("MPFS mailbox controller driver");
 diff --git a/include/soc/microchip/mpfs.h b/include/soc/microchip/mpfs.h
 new file mode 100644
-index 000000000000..4a9d335154a1
+index 000000000..4a9d33515
 --- /dev/null
 +++ b/include/soc/microchip/mpfs.h
 @@ -0,0 +1,51 @@
@@ -413,5 +413,5 @@ index 000000000000..4a9d335154a1
 +
 +#endif /* __SOC_MPFS_H__ */
 -- 
-2.17.1
+2.31.1
 

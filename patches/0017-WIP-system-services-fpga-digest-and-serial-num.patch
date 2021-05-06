@@ -1,7 +1,7 @@
-From 718d916e97252fe59086e8200854edaef0865fa7 Mon Sep 17 00:00:00 2001
+From 531cb7fe48c7c88e1d517e63488f7192f116380e Mon Sep 17 00:00:00 2001
 From: Conor Dooley <conor.dooley@microchip.com>
 Date: Wed, 13 Jan 2021 15:21:42 +0000
-Subject: [PATCH] WIP system services: fpga digest and serial num
+Subject: [PATCH 17/18] WIP system services: fpga digest and serial num
 
 ---
  drivers/soc/microchip/Kconfig              |  12 ++
@@ -13,7 +13,7 @@ Subject: [PATCH] WIP system services: fpga digest and serial num
  create mode 100644 drivers/soc/microchip/mpfs-serial-number.c
 
 diff --git a/drivers/soc/microchip/Kconfig b/drivers/soc/microchip/Kconfig
-index eb656b33156b..9b09d00eb2f5 100644
+index eb656b331..9b09d00eb 100644
 --- a/drivers/soc/microchip/Kconfig
 +++ b/drivers/soc/microchip/Kconfig
 @@ -8,3 +8,15 @@ config POLARFIRE_SOC_SYS_CTRL
@@ -33,7 +33,7 @@ index eb656b33156b..9b09d00eb2f5 100644
 +	help
 +	  This driver adds support for retrieving the PolarFire SoC's fpga digest via a char device.
 diff --git a/drivers/soc/microchip/Makefile b/drivers/soc/microchip/Makefile
-index 14489919fe4b..e70ed3fdcb85 100644
+index 14489919f..e70ed3fdc 100644
 --- a/drivers/soc/microchip/Makefile
 +++ b/drivers/soc/microchip/Makefile
 @@ -1 +1,3 @@
@@ -42,7 +42,7 @@ index 14489919fe4b..e70ed3fdcb85 100644
 +obj-$(CONFIG_POLARFIRE_SOC_FPGA_DIGEST)	+= mpfs-fpga-digest.o
 diff --git a/drivers/soc/microchip/mpfs-fpga-digest.c b/drivers/soc/microchip/mpfs-fpga-digest.c
 new file mode 100644
-index 000000000000..04add21ce572
+index 000000000..04add21ce
 --- /dev/null
 +++ b/drivers/soc/microchip/mpfs-fpga-digest.c
 @@ -0,0 +1,162 @@
@@ -210,7 +210,7 @@ index 000000000000..04add21ce572
 +MODULE_DESCRIPTION("PFSoC mailbox client driver");
 diff --git a/drivers/soc/microchip/mpfs-serial-number.c b/drivers/soc/microchip/mpfs-serial-number.c
 new file mode 100644
-index 000000000000..b947d66b6dee
+index 000000000..b947d66b6
 --- /dev/null
 +++ b/drivers/soc/microchip/mpfs-serial-number.c
 @@ -0,0 +1,137 @@
@@ -352,5 +352,5 @@ index 000000000000..b947d66b6dee
 +MODULE_AUTHOR("Conor Dooley <conor.dooley@microchip.com>");
 +MODULE_DESCRIPTION("PFSoC serial number driver");
 -- 
-2.17.1
+2.31.1
 

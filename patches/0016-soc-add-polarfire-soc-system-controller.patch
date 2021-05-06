@@ -1,7 +1,7 @@
-From 7d2ebbd9fe54ee391ab203407d39938f628f7f4a Mon Sep 17 00:00:00 2001
+From aa4abe9fe65969665fe1c1dfd29ba8f99fd633a2 Mon Sep 17 00:00:00 2001
 From: Conor Dooley <conor.dooley@microchip.com>
 Date: Mon, 21 Dec 2020 15:33:25 +0000
-Subject: [PATCH v3 3/5] soc: add polarfire soc system controller
+Subject: [PATCH 16/18] soc: add polarfire soc system controller
 
 This driver provides an interface for other drivers to access the
 functions of the system controller on the Microchip PolarFire SoC.
@@ -19,7 +19,7 @@ Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
  create mode 100644 drivers/soc/microchip/mpfs-sys-controller.c
 
 diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-index 425ab6f7e375..22cb097bcbdc 100644
+index 425ab6f7e..22cb097bc 100644
 --- a/drivers/soc/Kconfig
 +++ b/drivers/soc/Kconfig
 @@ -9,6 +9,7 @@ source "drivers/soc/bcm/Kconfig"
@@ -31,10 +31,10 @@ index 425ab6f7e375..22cb097bcbdc 100644
  source "drivers/soc/qcom/Kconfig"
  source "drivers/soc/renesas/Kconfig"
 diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-index 8b49d782a1ab..d82a7293092d 100644
+index 36452bed8..91891da0f 100644
 --- a/drivers/soc/Makefile
 +++ b/drivers/soc/Makefile
-@@ -15,6 +15,7 @@ obj-$(CONFIG_ARCH_MXC)		+= imx/
+@@ -15,6 +15,7 @@ obj-y				+= imx/
  obj-$(CONFIG_ARCH_IXP4XX)	+= ixp4xx/
  obj-$(CONFIG_SOC_XWAY)		+= lantiq/
  obj-y				+= mediatek/
@@ -44,7 +44,7 @@ index 8b49d782a1ab..d82a7293092d 100644
  obj-y				+= renesas/
 diff --git a/drivers/soc/microchip/Kconfig b/drivers/soc/microchip/Kconfig
 new file mode 100644
-index 000000000000..eb656b33156b
+index 000000000..eb656b331
 --- /dev/null
 +++ b/drivers/soc/microchip/Kconfig
 @@ -0,0 +1,10 @@
@@ -60,14 +60,14 @@ index 000000000000..eb656b33156b
 +	  If unsure, say N.
 diff --git a/drivers/soc/microchip/Makefile b/drivers/soc/microchip/Makefile
 new file mode 100644
-index 000000000000..14489919fe4b
+index 000000000..14489919f
 --- /dev/null
 +++ b/drivers/soc/microchip/Makefile
 @@ -0,0 +1 @@
 +obj-$(CONFIG_POLARFIRE_SOC_SYS_CTRL)	+= mpfs-sys-controller.o
 diff --git a/drivers/soc/microchip/mpfs-sys-controller.c b/drivers/soc/microchip/mpfs-sys-controller.c
 new file mode 100644
-index 000000000000..bf1a7efae223
+index 000000000..bf1a7efae
 --- /dev/null
 +++ b/drivers/soc/microchip/mpfs-sys-controller.c
 @@ -0,0 +1,133 @@
@@ -205,5 +205,5 @@ index 000000000000..bf1a7efae223
 +MODULE_AUTHOR("Conor Dooley <conor.dooley@microchip.com>");
 +MODULE_DESCRIPTION("MPFS system controller driver");
 -- 
-2.17.1
+2.31.1
 

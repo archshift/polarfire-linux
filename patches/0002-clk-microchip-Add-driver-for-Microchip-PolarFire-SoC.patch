@@ -1,8 +1,7 @@
-From 303ff81573c6ce2cc9a0e1db43d0bb529196572c Mon Sep 17 00:00:00 2001
+From 57477d943cf4451290d5f04c2ac2a15823a8f1cf Mon Sep 17 00:00:00 2001
 From: Daire McNamara <daire.mcnamara@microchip.com>
 Date: Wed, 14 Oct 2020 16:22:59 +0100
-Subject: [PATCH v1 04/10] clk: microchip: Add driver for Microchip PolarFire
- SoC
+Subject: [PATCH 02/18] clk: microchip: Add driver for Microchip PolarFire SoC
 
 Add support for clock configuration on Microchip PolarFire SoC
 
@@ -20,10 +19,10 @@ Signed-off-by: Daire McNamara <daire.mcnamara@microchip.com>
  create mode 100644 include/dt-bindings/clock/microchip,pfsoc-clock.h
 
 diff --git a/drivers/clk/Kconfig b/drivers/clk/Kconfig
-index bcb257baed06..91ffbf5d795f 100644
+index c715d4681..2860f0ae7 100644
 --- a/drivers/clk/Kconfig
 +++ b/drivers/clk/Kconfig
-@@ -349,6 +349,7 @@ source "drivers/clk/ingenic/Kconfig"
+@@ -370,6 +370,7 @@ source "drivers/clk/ingenic/Kconfig"
  source "drivers/clk/keystone/Kconfig"
  source "drivers/clk/mediatek/Kconfig"
  source "drivers/clk/meson/Kconfig"
@@ -32,10 +31,10 @@ index bcb257baed06..91ffbf5d795f 100644
  source "drivers/clk/qcom/Kconfig"
  source "drivers/clk/renesas/Kconfig"
 diff --git a/drivers/clk/Makefile b/drivers/clk/Makefile
-index f4169cc2fd31..53b2653b0434 100644
+index da8fcf147..71bca9261 100644
 --- a/drivers/clk/Makefile
 +++ b/drivers/clk/Makefile
-@@ -88,7 +88,7 @@ obj-$(CONFIG_ARCH_KEYSTONE)		+= keystone/
+@@ -90,7 +90,7 @@ obj-$(CONFIG_ARCH_KEYSTONE)		+= keystone/
  obj-$(CONFIG_MACH_LOONGSON32)		+= loongson1/
  obj-y					+= mediatek/
  obj-$(CONFIG_ARCH_MESON)		+= meson/
@@ -46,7 +45,7 @@ index f4169cc2fd31..53b2653b0434 100644
  endif
 diff --git a/drivers/clk/microchip/Kconfig b/drivers/clk/microchip/Kconfig
 new file mode 100644
-index 000000000000..fcdddfbbcaba
+index 000000000..fcdddfbbc
 --- /dev/null
 +++ b/drivers/clk/microchip/Kconfig
 @@ -0,0 +1,7 @@
@@ -58,7 +57,7 @@ index 000000000000..fcdddfbbcaba
 +	help
 +	  Supports Clock Configuration for PolarFire SoC
 diff --git a/drivers/clk/microchip/Makefile b/drivers/clk/microchip/Makefile
-index f34b247e870f..601f09c1ab44 100644
+index f34b247e8..601f09c1a 100644
 --- a/drivers/clk/microchip/Makefile
 +++ b/drivers/clk/microchip/Makefile
 @@ -1,3 +1,5 @@
@@ -71,7 +70,7 @@ index f34b247e870f..601f09c1ab44 100644
 +obj-$(CONFIG_MCHP_CLK_PFSOC)	+= clk-pfsoc.o
 diff --git a/drivers/clk/microchip/clk-pfsoc.c b/drivers/clk/microchip/clk-pfsoc.c
 new file mode 100644
-index 000000000000..d7f8472bf1eb
+index 000000000..d97c71b70
 --- /dev/null
 +++ b/drivers/clk/microchip/clk-pfsoc.c
 @@ -0,0 +1,443 @@
@@ -520,7 +519,7 @@ index 000000000000..d7f8472bf1eb
 +MODULE_ALIAS("platform:clk-pfsoc");
 diff --git a/include/dt-bindings/clock/microchip,pfsoc-clock.h b/include/dt-bindings/clock/microchip,pfsoc-clock.h
 new file mode 100644
-index 000000000000..c9d8e4f6b963
+index 000000000..c9d8e4f6b
 --- /dev/null
 +++ b/include/dt-bindings/clock/microchip,pfsoc-clock.h
 @@ -0,0 +1,45 @@
@@ -570,5 +569,5 @@ index 000000000000..c9d8e4f6b963
 +
 +#endif	/* _DT_BINDINGS_CLK_MICROCHIP_PFSOC_H_ */
 -- 
-2.25.1
+2.31.1
 
